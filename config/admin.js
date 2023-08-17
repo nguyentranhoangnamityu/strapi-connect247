@@ -10,5 +10,6 @@ module.exports = ({ env }) => ({
       salt: env("TRANSFER_TOKEN_SALT"),
     },
   },
-  url: env("PUBLIC_ADMIN_URL", "/dashboard"),
+  // url: env("PUBLIC_ADMIN_URL", "/dashboard"),
+  url: "https://lab.connect247.vn/strapi/admin",
 });
