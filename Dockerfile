@@ -6,7 +6,7 @@ COPY . /app
 RUN yarn install &&  \
     yarn build && \
     yarn cache clean  && \
-    rm -rf /app/.git* /app/docker-compose.yml /app/Dockerfile /app/.env.example /app/next/cache/* /app/.next/cache/* && \
+    rm -rf /app/.git* /app/docker-compose-dev.yml /app/Dockerfile /app/.env.example  && \
     chgrp -R 0 /app/ && chmod -R g=u /app/ && chown -R 1000:0 /app/
 
 USER 1000
