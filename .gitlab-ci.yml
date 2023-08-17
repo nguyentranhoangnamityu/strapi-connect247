@@ -1,0 +1,75 @@
+# CRM STRAPI v1.0.0
+# Describes: 
+stages:
+    - build
+    - deploy
+
+variables:
+  GIT_STRATEGY: clone
+  #token: '******'
+  FILE_ENV: '.env.example'
+  PROVIDER_BUILDER: builder-linux-ucrm
+  PROVIDER_APP_DEV: 'dev-crm-v1'
+
+############ DOCKER TEMPLATE ################  
+.docker-template: &dockerTemplate
+  stage: build
+  tags:
+  - ${PROVIDER_BUILDER}
+  variables:
+    GIT_STRATEGY: clone
+
+  script:
+    - echo "STARTING BUILD IMAGES"
+    #- echo "Getting version IMAGE_VERSION"
+    #- IMAGE_VERSION=$(head CHANGELOG.md | grep '#' | grep '(' | head -n 1 | awk '{print $2}')
+    #- echo "IMAGE_VERSION $IMAGE_VERSION"
+    - echo "CI_COMMIT_SHORT_SHA - $CI_COMMIT_SHORT_SHA"
+    - if [ -f .env ]; then rm -rf .env ; else echo "not found .env" ; fi && \
+    - cp .env.example .env
+    - echo "Checking env"
+    - echo "----------- Start env ----------- "
+    - cat .env
+    - echo "----------- End env ----------- "
+    - echo "Starting build images"
+    - docker build --no-cache  -f Dockerfile     -t $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0  .
+    - docker login -u $DOCKER_USER -p "$DOCKER_PASS" https://$DOCKER_REGISTRY
+    - docker push     $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0
+    - docker rmi -f   $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0
+
+build-image-dev:
+  <<: *dockerTemplate
+  variables:
+    ENVIROMENT: dev
+  
+  only:
+    - /^Feature.*$/
+    - Develop
+
+###############
+.deploy-docker-template: &deployDockerTemplate
+  stage: deploy
+  variables:
+    GIT_STRATEGY: clone
+
+  script:
+    #- sed 's|image:.*|image: registry.smbbasebs.com:5000/dev/ucrm-portal-frontend-v1.1 |g' docker-compose.yml
+    - echo "Deploying"
+    - cat docker-compose-dev.yml
+    - docker pull $DOCKER_REGISTRY/$ENVIROMENT/ucrm-portal-frontend:v1.0.0
+    - sudo /usr/local/bin/docker-compose  -f docker-compose.yml up -d --force-recreate
+
+deploy:dev:
+  <<: *deployDockerTemplate
+  tags:
+  - ${PROVIDER_APP_DEV}
+  
+  variables:
+    ENVIROMENT: dev
+  
+  only: 
+    - /^Feature.*$/
+    - Develop
+  needs:
+    - build-image-dev
+    
