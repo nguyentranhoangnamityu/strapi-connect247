@@ -32,7 +32,7 @@ variables:
     - cat .env
     - echo "----------- End env ----------- "
     - echo "Starting build images"
-    - docker build --no-cache  -f Dockerfile     -t $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0  .
+    - docker build --no-cache -f Dockerfile -t $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0 .
     - docker login -u $DOCKER_USER -p "$DOCKER_PASS" https://$DOCKER_REGISTRY
     - docker push     $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0
     - docker rmi -f   $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0
