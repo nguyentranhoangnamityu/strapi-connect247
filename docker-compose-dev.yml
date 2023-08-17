@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  ucrm-strapi:
+    container_name: ucrm-strapi
+    image: registry.smbbasebs.com:5000/dev/ucrm-strapi:v1.0.0
+    networks:
+    - ucrm-strapi
+    restart: always
+    ports:
+    - "8099:1337"
+    environment:
+      container_name: ucrm-strapi
+      hostname: 'ucrm-starpi'
+
+    volumes:
+     - /etc/hosts:/etc/hosts
+networks:
+  ucrm-strapi:
+    driver: bridge
