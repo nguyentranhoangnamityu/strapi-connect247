@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tenants",
+  "info": {
+    "singularName": "tenant",
+    "pluralName": "tenants",
+    "displayName": "Tenant",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "API_DOMAIN": {
+      "type": "string"
+    },
+    "TENANT_ID": {
+      "type": "string"
+    },
+    "API_SSO": {
+      "type": "string"
+    },
+    "OBJ_ARTICLE": {
+      "type": "string"
+    },
+    "THUMBNAIL": {
+      "type": "string"
+    },
+    "TITLE": {
+      "type": "string"
+    },
+    "BODY": {
+      "type": "string"
+    },
+    "CATEGORY": {
+      "type": "string"
+    },
+    "TAG": {
+      "type": "string"
+    }
+  }
+}
