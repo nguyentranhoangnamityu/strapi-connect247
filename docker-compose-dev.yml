@@ -14,6 +14,7 @@ services:
 
     volumes:
      - /etc/hosts:/etc/hosts
+     - /app/ucrm-strapi:/app/.tmp
 networks:
   ucrm-strapi:
     driver: bridge
