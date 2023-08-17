@@ -10,5 +10,5 @@ module.exports = ({ env }) => ({
       salt: env("TRANSFER_TOKEN_SALT"),
     },
   },
-  url: env("PUBLIC_ADMIN_URL", "/dashboard"),
+  // url: env("PUBLIC_ADMIN_URL", "/dashboard"),
 });
