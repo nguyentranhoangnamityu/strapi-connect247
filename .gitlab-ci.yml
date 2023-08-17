@@ -56,8 +56,8 @@ build-image-dev:
     #- sed 's|image:.*|image: registry.smbbasebs.com:5000/dev/ucrm-portal-frontend-v1.1 |g' docker-compose.yml
     - echo "Deploying"
     - cat docker-compose-dev.yml
-    - docker pull $DOCKER_REGISTRY/$ENVIROMENT/ucrm-portal-frontend:v1.0.0
-    - sudo /usr/local/bin/docker-compose  -f docker-compose.yml up -d --force-recreate
+    - docker pull $DOCKER_REGISTRY/$ENVIROMENT/ucrm-strapi:v1.0.0
+    - sudo /usr/local/bin/docker-compose  -f docker-compose-dev.yml up -d --force-recreate
 
 deploy:dev:
   <<: *deployDockerTemplate
