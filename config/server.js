@@ -9,5 +9,7 @@ module.exports = ({ env }) => ({
     populateRelations: env.bool("WEBHOOKS_POPULATE_RELATIONS", false),
   },
   proxy: true,
-  url: "https://lab.connect247.vn/strapi",
+  url: "/strapi",
+  // url: "https://lab.connect247.vn/strapi",
+  globalProxy: "/strapi",
 });

@@ -11,5 +11,6 @@ module.exports = ({ env }) => ({
     },
   },
   // url: env("PUBLIC_ADMIN_URL", "/dashboard"),
-  url: "https://lab.connect247.vn/strapi/admin",
+  // url: "https://lab.connect247.vn/strapi/admin",
+  url: "/dashboard",
 });
